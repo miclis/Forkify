@@ -11,6 +11,10 @@ export const clearResults = () => {
 	elements.searchResPages.innerHTML = '';
 };
 
+export const highlightSelected = id => {
+	document.querySelector(`a[href=#${id}]`).classList.add('.results__link--active');
+};
+
 // Cuts the title into words and then joins again until the length is <= limit
 const limitRecipeTitle = (title, limit = 17) => {
 	const newTitle = [];
