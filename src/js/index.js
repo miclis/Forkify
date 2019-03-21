@@ -1,6 +1,7 @@
 // Global App Controller
 import Search from './models/Search';
 import Recipe from './models/Recipe';
+import List from './models/List';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import { elements, renderLoader, clearLoader } from './views/base';
@@ -69,7 +70,6 @@ elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
 	// Get Id from url
 	const id = window.location.hash.replace('#', '');
-	console.log(id);
 
 	if (id) {
 		// Prepare UI for changes
