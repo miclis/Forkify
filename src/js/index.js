@@ -20,8 +20,7 @@ const state = {};
  */
 const controlSearch = async () => {
 	// 1. Get query from the view
-	// const query = searchView.getInput();
-	const query = 'pizza';
+	const query = searchView.getInput();
 
 	if (query) {
 		// 2. New search object and add to state
@@ -50,12 +49,6 @@ elements.searchForm.addEventListener('submit', e => {
 	controlSearch();
 });
 
-// TESTING
-window.addEventListener('load', e => {
-	e.preventDefault();
-	controlSearch();
-});
-
 elements.searchResPages.addEventListener('click', e => {
 	const btn = e.target.closest('.btn-inline');
 	if (btn) {
@@ -71,7 +64,6 @@ elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
 	// Get Id from url
 	const id = window.location.hash.replace('#', '');
-	console.log(id);
 
 	if (id) {
 		// Prepare UI for changes
@@ -107,10 +99,6 @@ const controlRecipe = async () => {
 /**
  * Like CONTROLLER
  */
-// TESTING
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumLikes());
-
 const controlLike = () => {
 	if (!state.likes) state.likes = new Likes();
 	const currentID = state.recipe.id;
@@ -143,6 +131,20 @@ const controlLike = () => {
 	}
 	likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
+
+// Restore liked recipes on page load
+window.addEventListener('load', () => {
+	state.likes = new Likes();
+
+	// Restore likes
+	state.likes.readStorage();
+
+	// Toggle like menu button
+	likesView.toggleLikeMenu(state.likes.getNumLikes());
+
+	// Render the existing likes
+	state.likes.likes.forEach(like => likesView.renderLike(like));
+});
 
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
