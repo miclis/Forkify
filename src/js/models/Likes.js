@@ -4,7 +4,7 @@ export default class Likes {
 	}
 
 	addLike(id, title, author, image) {
-		const like = { id, title, img };
+		const like = { id, title, author, image };
 		this.likes.push(like);
 		return like;
 	}
